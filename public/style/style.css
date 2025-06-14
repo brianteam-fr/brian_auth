@@ -6,7 +6,7 @@
 
  body {
      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-     background: linear-gradient(135deg, #ABECFF 0%, #ABECFF 100%);
+     background: linear-gradient(135deg, #74A1B3 0%, #74A1B3 100%);
      min-height: 100vh;
      display: flex;
      align-items: center;
@@ -33,7 +33,7 @@
  .logo-icon {
      width: 60px;
      height: 60px;
-     background: linear-gradient(135deg, #FFD760, #ABECFF);
+     background: linear-gradient(135deg, #FFD760, #74A1B3);
      border-radius: 50%;
      display: inline-flex;
      align-items: center;
@@ -144,7 +144,7 @@
      margin: 20px 0;
      width: 100%;
      padding: 15px;
-     background: linear-gradient(135deg, #49cbf2, #ABECFF);
+     background: linear-gradient(135deg, #74A1B3, #74A1B3);
      color: white;
      border: none;
      border-radius: 12px;

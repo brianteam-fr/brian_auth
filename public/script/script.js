@@ -16,6 +16,9 @@ const auth = firebase.auth();
 let isPasswordResetComplete = false;
 let isCodeValid = false;
 
+// Variable globale pour mémoriser l'état de succès
+window.passwordResetSuccess = window.passwordResetSuccess || false;
+
 // Récupération des paramètres URL
 const urlParams = new URLSearchParams(window.location.search);
 const mode = urlParams.get('mode');
@@ -25,7 +28,11 @@ console.log('Mode:', mode);
 console.log('OobCode:', oobCode);
 
 // Vérification des paramètres et du code
-if (!oobCode) {
+if (window.passwordResetSuccess) {
+    // Afficher uniquement le message de succès
+    showSuccess('Votre mot de passe a été réinitialisé avec succès ! Vous allez être redirigé...');
+    document.getElementById('resetForm').style.display = 'none';
+} else if (!oobCode) {
     // Ne rien afficher, laisser la page blanche
     document.getElementById('mainContainer').style.display = 'none';
 } else {
@@ -138,6 +145,7 @@ document.getElementById('resetForm').addEventListener('submit', async (e) => {
 
         // Marquer que la réinitialisation est terminée avec succès
         isPasswordResetComplete = true;
+        window.passwordResetSuccess = true; // <-- Sauvegarder l'état global
 
         showSuccess('Votre mot de passe a été réinitialisé avec succès ! Vous allez être redirigé...');
         document.getElementById('resetForm').style.display = 'none';
@@ -162,6 +170,8 @@ document.getElementById('resetForm').addEventListener('submit', async (e) => {
         }
 
         showError(errorMessage);
+        // En cas d'erreur, masquer tout
+        document.getElementById('mainContainer').style.display = 'none';
     } finally {
         setLoading(false);
     }
@@ -181,9 +191,9 @@ function showError(message) {
 }
 
 function showSuccess(message) {
-    // Ne pas cacher le conteneur si le succès est affiché
+    // Afficher uniquement le message de succès
     document.getElementById('mainContainer').style.display = 'block';
-
+    document.getElementById('resetForm').style.display = 'none';
     const successDiv = document.getElementById('successMessage');
     successDiv.innerHTML = `
         <div class="success-icon-wrapper">
